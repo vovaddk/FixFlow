@@ -1,0 +1,120 @@
+---
+import { faq } from '../data/faq';
+---
+
+<section class="faq wrap" id="faq" aria-labelledby="faq-title">
+  <h2 id="faq-title" class="label">
+    FAQ
+  </h2>
+
+  <div class="items">
+    {faq.map((item) => (
+      <details name="faq">
+        <summary>
+          <span>{item.question}</span>
+          <span class="plus" aria-hidden="true" />
+        </summary>
+        <p>{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--space-l);
+    padding-block: 0 var(--space-xl);
+  }
+
+  .items {
+    border-block-start: 1px solid var(--line);
+  }
+
+  details {
+    border-block-end: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    padding-block: 1.4rem;
+    font-size: var(--step-1);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    list-style: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover {
+    color: var(--violet-strong);
+  }
+
+  .plus {
+    position: relative;
+    flex: none;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    border-radius: 50%;
+    background: var(--mist);
+    transition:
+      background-color 0.25s,
+      rotate 0.35s var(--ease-out);
+  }
+
+  .plus::before,
+  .plus::after {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    inline-size: 0.8rem;
+    block-size: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    translate: -50% -50%;
+  }
+
+  .plus::after {
+    rotate: 90deg;
+  }
+
+  details[open] .plus {
+    rotate: 45deg;
+    background: var(--lilac);
+  }
+
+  details p {
+    max-inline-size: 62ch;
+    padding-block-end: 1.5rem;
+    color: var(--ink-soft);
+  }
+
+  details[open] p {
+    animation: reveal 0.4s var(--ease-out);
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-0.4rem);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .faq {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+
+    .faq .label {
+      margin-block-start: 1.9rem;
+    }
+  }
+</style>

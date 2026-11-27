@@ -1,0 +1,99 @@
+---
+import { Picture } from 'astro:assets';
+import tablet from '../assets/template-tablet.png';
+
+interface Props {
+  before: string;
+  after: string;
+  tone?: 'light' | 'dark';
+}
+
+const { before, after, tone = 'light' } = Astro.props;
+// Two identical runs so the -50% translate loops seamlessly.
+const runs = [0, 1];
+---
+
+<div class:list={['marquee', tone]} aria-hidden="true">
+  <div class="track">
+    {runs.map(() => (
+      <div class="run">
+        <span>{before}</span>
+        <Picture
+          src={tablet}
+          formats={['avif', 'webp']}
+          widths={[260, 416]}
+          sizes="(min-width: 48rem) 416px, 260px"
+          alt=""
+          class="chip"
+        />
+        <span>{after}</span>
+        <span class="dot" />
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    padding-block: var(--space-l);
+    user-select: none;
+  }
+
+  .dark {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .track {
+    display: flex;
+    inline-size: max-content;
+    animation: slide 38s linear infinite;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  .run {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 3vw, 3rem);
+    padding-inline-end: clamp(1.25rem, 3vw, 3rem);
+    font-size: var(--step-giant);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+  }
+
+  .run :global(.chip) {
+    inline-size: clamp(10rem, 22vw, 26rem);
+    border-radius: var(--radius-m);
+    box-shadow: 0 20px 50px -20px rgb(25 25 25 / 0.35);
+    rotate: -3deg;
+  }
+
+  .run:nth-child(2) :global(.chip) {
+    rotate: 3deg;
+  }
+
+  .dot {
+    inline-size: 0.18em;
+    block-size: 0.18em;
+    border-radius: 50%;
+    background: var(--violet);
+  }
+
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+    }
+  }
+</style>

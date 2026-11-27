@@ -1,0 +1,47 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<footer class="footer">
+  <div class="wrap row">
+    <a class="logo" href={base}>
+      FixFlow
+    </a>
+    <p>© 2022 SuperSkills LLC</p>
+    <a href="mailto:support@fixflow.me">support@fixflow.me</a>
+    <a href="#main">Back to top</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-l);
+    border-block-start: 1px solid var(--line);
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem var(--space-l);
+  }
+
+  .logo {
+    margin-inline-end: auto;
+    color: var(--ink);
+    font-size: var(--step-0);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  a:not(.logo) {
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover {
+    color: var(--violet-strong);
+  }
+</style>

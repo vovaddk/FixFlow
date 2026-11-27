@@ -1,0 +1,197 @@
+---
+import Arrow from './Arrow.astro';
+
+const starter = [
+  'Template customization',
+  'Quick turn-around',
+  'Full support',
+  '20–30 hours design / dev sprint',
+  'Refinements according to your needs',
+  'Advanced interactions',
+  'No contracts',
+  'Upgrade anytime',
+  'Meet your deadlines',
+  'Peace of mind',
+];
+
+const premium = [
+  'Webflow premium development',
+  'Webflow premium design',
+  'Website maintenance',
+  'Unlimited design requests',
+  'Advanced interactions',
+  'Quick turn-around',
+  'Figma to Webflow',
+  'Premium support',
+  'Easy fixes tutorials',
+  'And any other Webflow needs',
+];
+---
+
+<section class="pricing wrap" id="pricing" aria-labelledby="pricing-title">
+  <h2 id="pricing-title" class="label">
+    Pricing
+  </h2>
+
+  <div class="plans">
+    <article class="plan starter" aria-labelledby="plan-starter">
+      <h3 id="plan-starter">Starter</h3>
+      <p class="desc">
+        For those who need customization, template editing, project bug fixing, or simply a fast and
+        affordable hand.
+      </p>
+      <ul class="features">
+        {starter.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <div class="foot">
+        <p class="price">
+          <span class="price-label">Pay as low as</span>
+          <strong>$2,280</strong>
+          <span class="price-note">and your project is done in 5 days</span>
+        </p>
+        <a
+          class="btn"
+          href="mailto:support@fixflow.me?subject=Starter%20plan"
+          aria-label="Get started with the Starter plan"
+        >
+          Get started <Arrow />
+        </a>
+      </div>
+    </article>
+
+    <article class="plan premium" aria-labelledby="plan-premium">
+      <h3 id="plan-premium">Premium</h3>
+      <p class="desc">
+        All you need to skyrocket your Webflow project. A perfect plan for those who seek
+        flexibility and excellence.
+      </p>
+      <ul class="features">
+        {premium.map((item, i) => (
+          <li class:list={{ strong: i < 2 }}>{item}</li>
+        ))}
+      </ul>
+      <div class="foot">
+        <p class="price">
+          <span class="price-label">Monthly retainer</span>
+          <strong>Custom</strong>
+          <span class="price-note">scoped to your roadmap</span>
+        </p>
+        <a class="btn btn--dark" href="mailto:support@fixflow.me?subject=Premium%20plan">
+          Contact sales team <Arrow />
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    display: grid;
+    gap: var(--space-l);
+    padding-block: var(--space-xl);
+  }
+
+  .plans {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .plan {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-m);
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    border-radius: var(--radius-l);
+  }
+
+  .starter {
+    background: var(--mint-tint);
+  }
+
+  .premium {
+    background: var(--violet-tint);
+  }
+
+  h3 {
+    font-size: var(--step-2);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .desc {
+    max-inline-size: 48ch;
+    color: var(--ink-soft);
+  }
+
+  .features {
+    display: grid;
+    gap: 0.6rem 1.5rem;
+    align-content: start;
+    padding: 0;
+    list-style: none;
+    font-size: var(--step--1);
+  }
+
+  .features li {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .features li::before {
+    content: '';
+    flex: none;
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    margin-block-start: 0.1rem;
+    border-radius: 50%;
+    background: var(--ink)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / 0.8rem no-repeat;
+  }
+
+  .features .strong {
+    font-weight: 600;
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-m);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid rgb(25 25 25 / 0.1);
+  }
+
+  .price {
+    display: grid;
+  }
+
+  .price-label,
+  .price-note {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .price strong {
+    font-size: var(--step-3);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 40rem) {
+    .features {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .plans {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

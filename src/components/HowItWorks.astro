@@ -1,0 +1,131 @@
+---
+import Arrow from './Arrow.astro';
+---
+
+<section class="how" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="lead">
+      <h2 id="how-title" class="label">
+        How it works?
+      </h2>
+      <p class="statement">
+        Even if you’re not a Webflow expert, get a template and let us make the magic happen.
+      </p>
+      <a class="btn btn--ghost" href="#templates">
+        Selected templates <Arrow />
+      </a>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <h3>Get a Webflow template</h3>
+        <p>
+          If you have a template, you’re ready to move on to the next step. If not, select one from
+          our <a href="#templates">selected templates</a> or choose one from the Webflow
+          marketplace.
+        </p>
+      </li>
+      <li>
+        <h3>Describe your needs</h3>
+        <p>
+          Tell us about your project. Are you looking for a simple tweak or a fresh redesign?{' '}
+          <a href="mailto:support@fixflow.me">Let us know</a>.
+        </p>
+      </li>
+      <li>
+        <h3>Kick off your project</h3>
+        <p>
+          Let’s get started. Now that we know how to help you, we’ll make the magic happen.{' '}
+          <a href="#faq">Any more questions?</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding-block: var(--space-xl) var(--space-l);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lead {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    text-align: center;
+  }
+
+  .statement {
+    max-inline-size: 22ch;
+    font-size: var(--step-3);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--space-s);
+    max-inline-size: 56rem;
+    margin: var(--space-xl) auto 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .steps li {
+    position: relative;
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-m) var(--space-m) var(--space-m) calc(var(--space-m) + 3.5rem);
+    border-radius: var(--radius-m);
+    background: #242424;
+    counter-increment: step;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    inset-inline-start: var(--space-m);
+    inset-block-start: var(--space-m);
+    display: grid;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: var(--step-1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .steps p {
+    max-inline-size: 60ch;
+    color: #c9c9d1;
+  }
+
+  .steps a {
+    color: var(--paper);
+    text-decoration-color: var(--violet);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+
+  .steps a:hover {
+    color: var(--lilac);
+  }
+
+  .how :global(:focus-visible) {
+    box-shadow:
+      0 0 0 3px var(--ink),
+      0 0 0 5px var(--lilac);
+  }
+</style>

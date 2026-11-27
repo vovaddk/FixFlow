@@ -1,0 +1,161 @@
+---
+const features = [
+  {
+    title: 'Quick customization',
+    text: 'You have the material, we have the skills — we’ll get your site up and running in just a few days, with a template custom-designed to meet your needs.',
+    tone: 'sky',
+    shape: 'triangle',
+  },
+  {
+    title: 'Transparent pricing',
+    text: 'Hire our team and we’ll go above and beyond to deliver you a product stress-free and at a fair price.',
+    tone: 'mint',
+    shape: 'square',
+  },
+  {
+    title: 'Webflow experts',
+    text: 'We’re a multi-skilled team of Webflow experts providing you end-to-end service. From design and development to commercial support.',
+    tone: 'lilac',
+    shape: 'circle',
+  },
+  {
+    title: 'International experience',
+    text: 'Our team’s global reach means we are never too far to assist you. Wherever you are in the globe, we got you covered.',
+    tone: 'peach',
+    shape: 'orbit',
+  },
+] as const;
+---
+
+<section class="why wrap" id="why" aria-labelledby="why-title">
+  <div class="lead">
+    <h2 id="why-title" class="label">
+      Why FixFlow is good for you?
+    </h2>
+    <p class="statement">
+      Are you struggling to edit the template you purchased? Or racing against the clock? Leave the
+      painful part with us.
+    </p>
+  </div>
+
+  <ul class="grid">
+    {features.map((feature) => (
+      <li class:list={['card', feature.tone]}>
+        <svg class="icon" viewBox="0 0 36 36" width="44" height="44" aria-hidden="true">
+          <rect width="36" height="36" rx="8" class="icon-bg" />
+          {feature.shape === 'triangle' && <polygon points="18,10 26,26 10,26" fill="#fff" />}
+          {feature.shape === 'square' && (
+            <rect x="11" y="11" width="14" height="14" rx="2" fill="#fff" />
+          )}
+          {feature.shape === 'circle' && <circle cx="18" cy="18" r="7" fill="#fff" />}
+          {feature.shape === 'orbit' && (
+            <>
+              <ellipse cx="18" cy="18" rx="9" ry="5.5" fill="#fff" />
+              <circle cx="18" cy="11" r="2" fill="#fff" />
+              <circle cx="18" cy="25" r="2" fill="#fff" />
+            </>
+          )}
+        </svg>
+        <h3>{feature.title}</h3>
+        <p>{feature.text}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .why {
+    padding-block: var(--space-xl);
+  }
+
+  .lead {
+    display: grid;
+    gap: var(--space-m);
+    margin-block-end: var(--space-l);
+  }
+
+  .statement {
+    max-inline-size: 20ch;
+    font-size: var(--step-3);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--space-s);
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-radius: var(--radius-l);
+    background: var(--tint);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .icon {
+    margin-block-end: var(--space-s);
+  }
+
+  .icon-bg {
+    fill: var(--accent);
+  }
+
+  h3 {
+    font-size: var(--step-1);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .card p {
+    max-inline-size: 46ch;
+    color: var(--ink-soft);
+  }
+
+  .sky {
+    --tint: var(--sky-tint);
+    --accent: var(--sky);
+  }
+
+  .mint {
+    --tint: var(--mint-tint);
+    --accent: var(--mint);
+  }
+
+  .lilac {
+    --tint: var(--violet-tint);
+    --accent: var(--lilac);
+  }
+
+  .peach {
+    --tint: var(--peach-tint);
+    --accent: var(--peach);
+  }
+
+  @media (min-width: 48rem) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .lead {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+
+    .lead .label {
+      margin-block-start: 1rem;
+    }
+  }
+</style>

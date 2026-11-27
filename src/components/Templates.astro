@@ -1,0 +1,143 @@
+---
+import Arrow from './Arrow.astro';
+import Marquee from './Marquee.astro';
+
+const templates = [
+  { name: 'Gringo', price: '$79' },
+  { name: 'Clark', price: '$149' },
+  { name: 'Mollie', price: '$149' },
+  { name: 'Friday', price: '$149' },
+];
+
+const mailto = (name: string) =>
+  `mailto:support@fixflow.me?subject=${encodeURIComponent(`Customize the ${name} template`)}`;
+---
+
+<section class="templates" id="templates" aria-labelledby="templates-title">
+  <Marquee before="Selected" after="templates" tone="dark" />
+
+  <div class="wrap">
+    <div class="lead">
+      <h2 id="templates-title" class="label">
+        Get started with templates
+      </h2>
+      <p class="statement">
+        Have no experience in Webflow? Our expert team is ready to be hands-on with your project.
+      </p>
+    </div>
+
+    <ul class="list">
+      {templates.map((template) => (
+        <li>
+          <a href={mailto(template.name)}>
+            <span class="name">{template.name}</span>
+            <span class="price">{template.price}</span>
+            <span class="cta">
+              Request customization <Arrow diagonal />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .templates {
+    padding-block-end: var(--space-xl);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lead {
+    display: grid;
+    gap: var(--space-m);
+    margin-block: var(--space-l);
+  }
+
+  .statement {
+    max-inline-size: 20ch;
+    font-size: var(--step-3);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .list {
+    display: grid;
+    padding: 0;
+    list-style: none;
+    border-block-start: 1px solid #333;
+  }
+
+  .list a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+    padding-block: 1.5rem;
+    border-block-end: 1px solid #333;
+    text-decoration: none;
+    transition: padding 0.35s var(--ease-out);
+  }
+
+  .name {
+    font-size: var(--step-2);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .price {
+    color: #b8b8c2;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    grid-column: 1 / -1;
+    font-size: var(--step--1);
+    color: var(--lilac);
+  }
+
+  .list a:hover {
+    padding-inline: 1rem;
+  }
+
+  .list a:hover .name {
+    color: var(--lilac);
+  }
+
+  .list a:focus-visible {
+    box-shadow:
+      0 0 0 3px var(--ink),
+      0 0 0 5px var(--lilac);
+  }
+
+  @media (min-width: 48rem) {
+    .list {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-l);
+    }
+
+    .list a {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    .cta {
+      grid-column: auto;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .lead {
+      grid-template-columns: 1fr 2fr;
+      align-items: start;
+    }
+
+    .lead .label {
+      margin-block-start: 1rem;
+    }
+  }
+</style>

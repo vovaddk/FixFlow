@@ -1,0 +1,41 @@
+---
+import Arrow from './Arrow.astro';
+---
+
+<section class="intro wrap" aria-labelledby="intro-title">
+  <h2 id="intro-title" class="label">
+    FixFlow
+  </h2>
+  <p class="statement">
+    Looking for hassle-free, creative, affordable, fast support for your Webflow project? Our expert
+    team covers it all.
+  </p>
+  <a class="btn" href="#pricing">
+    Get started <Arrow />
+  </a>
+</section>
+
+<style>
+  .intro {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-m);
+    padding-block: var(--space-l) var(--space-xl);
+    text-align: center;
+  }
+
+  .statement {
+    max-inline-size: 24ch;
+    font-size: var(--step-2);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 48rem) {
+    .statement {
+      max-inline-size: 30ch;
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
+import Marquee from '../components/Marquee.astro';
+import Why from '../components/Why.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Templates from '../components/Templates.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import { faq } from '../data/faq';
+
+const url = new URL(import.meta.env.BASE_URL, Astro.site).href;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'FixFlow',
+    url,
+    email: 'support@fixflow.me',
+    description: 'A Webflow expert team that customizes your Webflow template in minutes.',
+    makesOffer: [
+      {
+        '@type': 'Offer',
+        name: 'Starter',
+        price: '2280',
+        priceCurrency: 'USD',
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="FixFlow — Webflow template customization in minutes"
+  description="FixFlow is a team of Webflow experts that customizes your Webflow template fast: transparent pricing, quick turn-around and full support."
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main id="main" tabindex="-1">
+    <Hero />
+    <Intro />
+    <Marquee before="Webflow" after="is easy" />
+    <Why />
+    <HowItWorks />
+    <Templates />
+    <Pricing />
+    <Faq />
+  </main>
+  <Footer />
+</BaseLayout>

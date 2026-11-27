@@ -1,0 +1,263 @@
+---
+const base = import.meta.env.BASE_URL;
+const links = [
+  { href: '#why', label: 'Why it’s good' },
+  { href: '#how', label: 'How it works' },
+  { href: '#templates', label: 'Templates' },
+  { href: '#pricing', label: 'Pricing' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header class="header">
+  <div class="bar wrap">
+    <a class="logo" href={base} aria-label="FixFlow home">
+      <svg viewBox="0 0 45 45" width="40" height="40" aria-hidden="true" focusable="false">
+        <rect width="45" height="45" rx="9" fill="#191919"></rect>
+        <path
+          fill="#fff"
+          fill-rule="evenodd"
+          d="M31.29 11.28v6.18H19.91v3.39h11.38v6.17H19.91v6.66h-6.18v-22.4h17.56Z"
+        ></path>
+      </svg>
+      <span>FixFlow</span>
+    </a>
+
+    <button
+      class="toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-menu-toggle
+    >
+      <span class="visually-hidden" data-menu-label>
+        Open menu
+      </span>
+      <span class="toggle-lines" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <ul>
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn nav-cta" href="#pricing">
+        Get started
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const nav = document.getElementById('site-nav');
+
+  if (toggle && label && nav) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? 'Close menu' : 'Open menu';
+      nav.classList.toggle('is-open', open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(255 255 255 / 0.82);
+    backdrop-filter: saturate(1.4) blur(14px);
+    border-block-end: 1px solid rgb(25 25 25 / 0.06);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    min-block-size: 4.5rem;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  .nav ul {
+    display: flex;
+    gap: clamp(1rem, 2.4vw, 2.25rem);
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav ul a {
+    position: relative;
+    padding-block: 0.4rem;
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: color 0.2s;
+  }
+
+  .nav ul a::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    block-size: 2px;
+    background: var(--violet);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nav ul a:hover {
+    color: var(--ink);
+  }
+
+  .nav ul a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-cta {
+    min-block-size: 2.6rem;
+    padding-inline: 1.25rem;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+  @media (max-width: 56rem) {
+    .toggle {
+      display: grid;
+      place-items: center;
+      inline-size: 2.75rem;
+      block-size: 2.75rem;
+      border: 0;
+      border-radius: 50%;
+      background: var(--mist);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .toggle-lines,
+    .toggle-lines::before,
+    .toggle-lines::after {
+      display: block;
+      inline-size: 1.1rem;
+      block-size: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    .toggle-lines {
+      position: relative;
+    }
+
+    .toggle-lines::before,
+    .toggle-lines::after {
+      content: '';
+      position: absolute;
+    }
+
+    .toggle-lines::before {
+      transform: translateY(-6px);
+    }
+
+    .toggle-lines::after {
+      transform: translateY(6px);
+    }
+
+    .toggle[aria-expanded='true'] .toggle-lines {
+      background: transparent;
+    }
+
+    .toggle[aria-expanded='true'] .toggle-lines::before {
+      transform: rotate(45deg);
+    }
+
+    .toggle[aria-expanded='true'] .toggle-lines::after {
+      transform: rotate(-45deg);
+    }
+
+    .nav {
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-m);
+      padding: var(--space-m);
+      background: var(--paper);
+      border-block-end: 1px solid var(--line);
+      box-shadow: 0 24px 40px -24px rgb(25 25 25 / 0.25);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-0.5rem);
+      transition:
+        opacity 0.25s,
+        transform 0.3s var(--ease-out),
+        visibility 0s 0.3s;
+    }
+
+    .nav:global(.is-open) {
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0.25s,
+        transform 0.3s var(--ease-out);
+    }
+
+    .nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav ul a {
+      display: block;
+      padding-block: 0.85rem;
+      font-size: var(--step-1);
+      color: var(--ink);
+      border-block-end: 1px solid var(--line);
+    }
+
+    .nav ul a::after {
+      display: none;
+    }
+  }
+</style>
